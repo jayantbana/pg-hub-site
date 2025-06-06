@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PGFinder - Premium PG Rentals with 3D Room Previews</title>
+    <meta name="description" content="Find the perfect PG accommodation with our advanced search, 3D room previews, and verified listings.">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="animations.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+   <nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-brand">
+            <i class="fas fa-home"></i>
+            <span>PGFinder</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#listings" class="nav-link">Listings</a></li>
+            <li><a href="#add-pg" class="nav-link">Add PG</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" title="Toggle Theme">
+            🌙
+        </button>
+
+        <button class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+
+    <!-- Home Page -->
+    <section id="home" class="page active">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Find Your Perfect PG</h1>
+                <p class="hero-subtitle">Discover quality accommodations with 3D room previews and verified listings</p>
+                
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <div class="search-bar">
+                        <div class="search-field">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <select id="location-select">
+                                <option value="">Select Location</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Bangalore">Bangalore</option>
+                                <option value="Pune">Pune</option>
+                                <option value="Chennai">Chennai</option>
+                                <option value="Kolkata">Kolkata</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                            </select>
+                        </div>
+                        <div class="search-field">
+                            <i class="fas fa-bed"></i>
+                            <select id="type-select">
+                                <option value="">Room Type</option>
+                                <option value="single">Single Room</option>
+                                <option value="double">Double Sharing</option>
+                                <option value="triple">Triple Sharing</option>
+                                <option value="dormitory">Dormitory</option>
+                            </select>
+                        </div>
+                        <div class="search-field">
+                            <i class="fas fa-rupee-sign"></i>
+                            <select id="budget-select">
+                                <option value="">Budget Range</option>
+                                <option value="0-5000">₹0 - ₹5,000</option>
+                                <option value="5000-10000">₹5,000 - ₹10,000</option>
+                                <option value="10000-15000">₹10,000 - ₹15,000</option>
+                                <option value="15000-25000">₹15,000 - ₹25,000</option>
+                                <option value="25000+">₹25,000+</option>
+                            </select>
+                        </div>
+                        <button class="search-btn" onclick="performSearch()">
+                            <i class="fas fa-search"></i>
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-cards">
+                    <div class="floating-card">
+                        <i class="fas fa-cube"></i>
+                        <span>3D Preview</span>
+                    </div>
+                    <div class="floating-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Verified</span>
+                    </div>
+                    <div class="floating-card">
+                        <i class="fas fa-star"></i>
+                        <span>Top Rated</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured PGs -->
+        <div class="featured-section">
+            <div class="container">
+                <h2 class="section-title">Featured PGs</h2>
+                <div class="featured-grid" id="featured-pgs">
+                    <!-- Featured PGs will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <h3 class="stat-number">120+</h3>
+                        <p class="stat-label">Total Listings</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="stat-number">25+</h3>
+                        <p class="stat-label">3D Previews</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="stat-number">98%</h3>
+                        <p class="stat-label">Satisfaction Rate</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="stat-number">24/7</h3>
+                        <p class="stat-label">Support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Listings Page -->
+    <section id="listings" class="page">
+        <div class="container">
+            <div class="listings-header">
+                <h1>Browse PG Listings</h1>
+                
+                <!-- Filters -->
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label>City:</label>
+                        <select id="filter-city">
+                            <option value="">All Cities</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Kolkata">Kolkata</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Type:</label>
+                        <select id="filter-type">
+                            <option value="">All Types</option>
+                            <option value="single">Single Room</option>
+                            <option value="double">Double Sharing</option>
+                            <option value="triple">Triple Sharing</option>
+                            <option value="dormitory">Dormitory</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Price Range:</label>
+                        <select id="filter-price">
+                            <option value="">All Prices</option>
+                            <option value="0-5000">₹0 - ₹5,000</option>
+                            <option value="5000-10000">₹5,000 - ₹10,000</option>
+                            <option value="10000-15000">₹10,000 - ₹15,000</option>
+                            <option value="15000-25000">₹15,000 - ₹25,000</option>
+                            <option value="25000+">₹25,000+</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Features:</label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="filter-3d"> 3D Preview Available
+                        </label>
+                    </div>
+                    <button class="filter-btn" onclick="applyFilters()">Apply Filters</button>
+                </div>
+            </div>
+
+            <div class="listings-grid" id="listings-grid">
+                <!-- Listings will be loaded here -->
+            </div>
+
+            <div class="load-more-container">
+                <button class="load-more-btn" id="load-more-btn" onclick="loadMoreListings()">
+                    Load More Listings
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add PG Page -->
+    <section id="add-pg" class="page">
+        <div class="container">
+            <div class="form-container">
+                <h1>Add Your PG Listing</h1>
+                <form id="add-pg-form" class="pg-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="pg-name">PG Name *</label>
+                            <input type="text" id="pg-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pg-type">Room Type *</label>
+                            <select id="pg-type" required>
+                                <option value="">Select Type</option>
+                                <option value="single">Single Room</option>
+                                <option value="double">Double Sharing</option>
+                                <option value="triple">Triple Sharing</option>
+                                <option value="dormitory">Dormitory</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pg-city">City *</label>
+                            <select id="pg-city" required>
+                                <option value="">Select City</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Bangalore">Bangalore</option>
+                                <option value="Pune">Pune</option>
+                                <option value="Chennai">Chennai</option>
+                                <option value="Kolkata">Kolkata</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                                <option value ="Chandigarh">Chandigarh</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pg-area">Area *</label>
+                            <input type="text" id="pg-area" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pg-price">Monthly Rent (₹) *</label>
+                            <input type="number" id="pg-price" required min="1000">
+                        </div>
+                        <div class="form-group">
+                            <label for="pg-rooms">Total Rooms *</label>
+                            <input type="number" id="pg-rooms" required min="1">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="pg-address">Full Address *</label>
+                            <textarea id="pg-address" required rows="3"></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="pg-description">Description</label>
+                            <textarea id="pg-description" rows="4"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="pg-contact">Contact Number *</label>
+                            <input type="tel" id="pg-contact" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pg-email">Email</label>
+                            <input type="email" id="pg-email">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Amenities</label>
+                        <div class="amenities-grid">
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="wifi"> WiFi
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="ac"> AC
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="laundry"> Laundry
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="meals"> Meals
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="parking"> Parking
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="gym"> Gym
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="security"> 24/7 Security
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="power-backup"> Power Backup
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-plus"></i>
+                            Add PG Listing
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="page">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h1>Get in Touch</h1>
+                    <p>Have questions about our services? We're here to help!</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h3>Phone</h3>
+                                <p>+91 75840 19910</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h3>Email</h3>
+                                <p>support@pgfinder.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h3>Address</h3>
+                                <p>123 Tech Park, Bangalore, Karnataka 560001</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-container">
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-group">
+                            <label for="contact-name">Name *</label>
+                            <input type="text" id="contact-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Email *</label>
+                            <input type="email" id="contact-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-phone">Phone</label>
+                            <input type="tel" id="contact-phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-subject">Subject *</label>
+                            <input type="text" id="contact-subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Message *</label>
+                            <textarea id="contact-message" required rows="6"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals -->
+    <div id="pg-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <div id="viewer-modal" class="modal">
+        <div class="modal-content viewer-modal-content">
+            <span class="close">&times;</span>
+            <div class="viewer-controls">
+                <button class="view-btn" onclick="setView('front')">Front View</button>
+                <button class="view-btn" onclick="setView('side')">Side View</button>
+                <button class="view-btn" onclick="setView('top')">Top View</button>
+                <button class="view-btn" onclick="resetView()">Reset</button>
+            </div>
+            <div id="three-container"></div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="3d-rendered.js"></script>
+    <script src="utils.js"></script>
+    <script src="components.js"></script>
+    <script src="main.js"></script>
+</body>
+<footer class="site-footer">
+  <p>Made with ❤️ by Jayant Bana , Jas Aggarwal , Himanshu , Jivansh , Manish</p>
+</footer>
+</html>
