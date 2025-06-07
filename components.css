@@ -304,14 +304,7 @@
     color: #a0aec0;
 }
 
-.dark-mode .btn-primary {
-    background: #3b82f6;
-    color: white;
-}
 
-.dark-mode .btn-primary:hover {
-    background: #2563eb;
-}
 
 .dark-mode .btn-secondary {
     background: #2d3748;
