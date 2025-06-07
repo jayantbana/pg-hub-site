@@ -1,0 +1,815 @@
+
+/* PG Card Component */
+.pg-card {
+    background: rgba(255, 255, 255, 0.15); /* Light frost background */
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%); /* Safari support */
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.25); /* Light glass border */
+    overflow: hidden;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1); /* Frost shadow */
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    color: var(--text-color); /* Ensure text color adapts to theme */
+}
+
+.pg-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.15); /* Frost shadow on hover */
+}
+
+.pg-card-image {
+    position: relative;
+    height: 220px;
+    background: linear-gradient(135deg, #e2e8f0, #f1f5f9); /* Lighter neutral tones */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.pg-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.4s ease-in-out;
+    opacity: 1;
+    z-index: 2;
+    position: relative;
+}
+
+.pg-card-image.loading img {
+    opacity: 0;
+}
+
+/* Optional: SVG shimmer placeholder for image loading */
+.pg-card-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f1f5f9'/%3E%3Crect x='50' y='50' width='100' height='80' fill='%23e2e8f0' rx='5'/%3E%3Crect x='250' y='50' width='100' height='80' fill='%23e2e8f0' rx='5'/%3E%3Crect x='50' y='170' width='300' height='20' fill='%23cbd5e1' rx='10'/%3E%3Crect x='50' y='210' width='200' height='15' fill='%23cbd5e1' rx='7'/%3E%3Ccircle cx='320' cy='80' r='15' fill='%233b82f6'/%3E%3C/svg%3E");
+    background-size: cover;
+    opacity: 0.35;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+}
+
+.pg-card-image.loaded::before {
+    opacity: 0;
+}
+
+
+.pg-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(59, 130, 246, 0.9);
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+}
+
+.pg-badge.featured {
+    background: rgba(16, 185, 129, 0.9);
+}
+
+.pg-badge.premium {
+    background: rgba(245, 158, 11, 0.9);
+}
+
+.view-3d-btn {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #3b82f6;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    backdrop-filter: blur(10px);
+}
+
+.view-3d-btn:hover {
+    background: white;
+    transform: scale(1.05);
+}
+
+.pg-card-content {
+    padding: 1.5rem;
+}
+
+.pg-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1rem;
+}
+
+.pg-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.3;
+}
+
+.pg-card-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #059669;
+    text-align: right;
+}
+
+.pg-card-location {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.pg-card-type {
+    display: inline-block;
+    background: #f1f5f9;
+    color: #475569;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.pg-card-amenities {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.amenity-tag {
+    background: #e0f2fe;
+    color: #0284c7;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.pg-card-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.rating-stars {
+    color: #fbbf24;
+    font-size: 0.9rem;
+}
+
+.rating-text {
+    color: #64748b;
+    font-size: 0.8rem;
+}
+
+.pg-card-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.btn-primary {
+    background-image: linear-gradient(to right, #1A2980 0%, #26D0CE 51%, #1A2980 100%);
+    background-size: 200% auto;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-position 0.5s ease;
+    flex: 1;
+    font-size: 0.9rem;
+    /* Keep original margin and padding intact (assuming none set here) */
+}
+
+.btn-primary:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+.btn-secondary {
+    background: #f8fafc;
+    color: #475569;
+    border: 2px solid #e2e8f0;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    font-size: 0.9rem;
+}
+
+.btn-secondary:hover {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+}
+
+/* Dark Mode Styles */
+.dark-mode .pg-card {
+    background: rgba(18, 18, 18, 0.35); /* Dark frost background with black tint */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border in dark mode */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); /* Dark frost shadow */
+    color: var(--text-color); /* Ensure text color adapts to theme */
+    /* backdrop-filter is inherited from the base .pg-card style */
+}
+
+.dark-mode .pg-card:hover {
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4); /* Dark frost shadow on hover */
+    transform: translateY(-5px);
+}
+
+.dark-mode .pg-card-image {
+    background: linear-gradient(45deg, #0f172a, #1e293b);
+}
+.dark-mode .pg-card-image::before {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="%231a1f2f"/><rect x="50" y="50" width="100" height="80" fill="%233b4460" rx="5"/><rect x="250" y="50" width="100" height="80" fill="%233b4460" rx="5"/><rect x="50" y="170" width="300" height="20" fill="%234a5568" rx="10"/><rect x="50" y="210" width="200" height="15" fill="%234a5568" rx="7"/><circle cx="320" cy="80" r="15" fill="%2370aaff"/></svg>');
+    opacity: 0.3;
+}
+
+.dark-mode .pg-badge {
+    background: rgba(59, 130, 246, 0.9);
+    color: #e0e7ff;
+}
+
+.dark-mode .pg-badge.featured {
+    background: rgba(16, 185, 129, 0.9);
+}
+
+.dark-mode .pg-badge.premium {
+    background: rgba(245, 158, 11, 0.9);
+}
+
+.dark-mode .view-3d-btn {
+    background: rgba(30, 41, 59, 0.85);
+    color: #70aaff;
+    backdrop-filter: blur(10px);
+}
+
+.dark-mode .view-3d-btn:hover {
+    background: rgba(45, 55, 72, 0.95);
+}
+
+.dark-mode .pg-card-title {
+    color: #e0e7ff;
+}
+
+.dark-mode .pg-card-price {
+    color: #34d399;
+}
+
+.dark-mode .pg-card-location {
+    color: #a0aec0;
+}
+
+.dark-mode .pg-card-type {
+    background: #2d3748;
+    color: #a0aec0;
+}
+
+.dark-mode .amenity-tag {
+    background: #2a4365;
+    color: #63b3ed;
+}
+
+.dark-mode .rating-stars {
+    color: #ecc94b;
+}
+
+.dark-mode .rating-text {
+    color: #a0aec0;
+}
+
+.dark-mode .btn-primary {
+    background: #3b82f6;
+    color: white;
+}
+
+.dark-mode .btn-primary:hover {
+    background: #2563eb;
+}
+
+.dark-mode .btn-secondary {
+    background: #2d3748;
+    color: #a0aec0;
+    border-color: #4a5568;
+}
+
+.dark-mode .btn-secondary:hover {
+    background: #4a5568;
+    border-color: #718096;
+}
+
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 15px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalSlideIn 0.3s ease;
+}
+
+.viewer-modal-content {
+    max-width: 95vw;
+    max-height: 95vh;
+    background: #1e293b;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    z-index: 10;
+    cursor: pointer;
+    background: rgba(255,255,255,0.9);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.close:hover {
+    background: white;
+    color: #333;
+}
+
+.viewer-modal-content .close {
+    background: rgba(0,0,0,0.7);
+    color: white;
+}
+
+.viewer-modal-content .close:hover {
+    background: rgba(0,0,0,0.9);
+}
+
+/* PG Details Modal */
+.pg-details {
+    padding: 2rem;
+    max-width: 800px;
+}
+
+.pg-details-header {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.pg-details-image {
+    flex: 1;
+    height: 300px;
+    background: linear-gradient(45deg, #f0f9ff, #e0e7ff);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.pg-details-info {
+    flex: 1;
+}
+
+.pg-details-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.pg-details-location {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #64748b;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.pg-details-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #059669;
+    margin-bottom: 1rem;
+}
+
+.pg-details-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.pg-details-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.pg-details-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.pg-details-main h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+.pg-details-description {
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.pg-details-amenities {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.amenity-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+.amenity-item i {
+    color: #3b82f6;
+    width: 20px;
+}
+
+.pg-details-sidebar {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 10px;
+    height: fit-content;
+}
+
+.contact-info h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    color: #64748b;
+}
+
+.contact-item i {
+    color: #3b82f6;
+    width: 20px;
+}
+
+/* 3D Viewer Controls */
+.viewer-controls {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+}
+
+.view-btn {
+    background: rgba(255,255,255,0.9);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.view-btn:hover {
+    background: white;
+}
+
+#three-container {
+    width: 100%;
+    height: 500px;
+    background: #1e293b;
+    border-radius: 0 0 15px 15px;
+}
+
+/* Toast Notifications */
+#toast-container {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.toast {
+    background: white;
+    border-left: 4px solid #3b82f6;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    min-width: 300px;
+    max-width: 400px;
+    animation: toastSlideIn 0.3s ease;
+    position: relative;
+}
+
+.toast.success {
+    border-left-color: #10b981;
+}
+
+.toast.error {
+    border-left-color: #ef4444;
+}
+
+.toast.warning {
+    border-left-color: #f59e0b;
+}
+
+.toast-title {
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.25rem;
+}
+
+.toast-message {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.toast-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+/* Loading States */
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    color: #64748b;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e5e7eb;
+    border-top: 4px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 1rem;
+}
+
+/* Shimmer Animation */
+@keyframes loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Base Skeleton Style */
+.skeleton {
+  background: linear-gradient(90deg, var(--skeleton-light1, #3b3b3b) 25%, var(--skeleton-light2, #4a4a4a) 50%, var(--skeleton-light1, #3b3b3b) 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 6px;
+  display: block;
+}
+
+/* Card Container */
+.skeleton-card {
+  background: var(--card-bg, #fff);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: background 0.3s ease;
+}
+
+/* Skeleton Image Area */
+.skeleton-image {
+  height: 220px;
+  background: linear-gradient(90deg, var(--skeleton-light1, #3b3b3b) 25%, var(--skeleton-light2, #4a4a4a) 50%, var(--skeleton-light1, #3b3b3b) 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 15px 15px 0 0;
+}
+
+/* Content Area */
+.skeleton-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Title Placeholder */
+.skeleton-title {
+  height: 1.5rem;
+  width: 70%;
+  border-radius: 6px;
+}
+
+/* Text Lines */
+.skeleton-text {
+  height: 1rem;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.skeleton-text.short {
+  width: 60%;
+}
+
+/* Dark Mode Variable Support */
+body.dark-mode {
+  --skeleton-light1: #2a2a2a;
+  --skeleton-light2: #3a3a3a;
+  --card-bg: #1f1f1f;
+}
+
+/* Responsive Components */
+@media (max-width: 768px) {
+    .pg-card-actions {
+        flex-direction: column;
+    }
+
+    .modal-content {
+        margin: 1rem;
+        max-width: calc(100vw - 2rem);
+    }
+
+    .pg-details {
+        padding: 1rem;
+    }
+
+    .pg-details-header {
+        flex-direction: column;
+    }
+
+    .pg-details-content {
+        grid-template-columns: 1fr;
+    }
+
+    .pg-details-amenities {
+        grid-template-columns: 1fr;
+    }
+
+    .viewer-controls {
+        position: static;
+        justify-content: center;
+        padding: 1rem;
+        background: rgba(0,0,0,0.8);
+    }
+
+    #three-container {
+        height: 400px;
+    }
+
+    .toast {
+        min-width: auto;
+        max-width: calc(100vw - 2rem);
+    }
+
+    #toast-container {
+        left: 1rem;
+        right: 1rem;
+    }
+}
+
+/* Dark Mode Overrides */
+body.dark-mode .view-btn {
+    background: rgba(30, 41, 59, 0.8);
+    color: #f1f5f9;
+}
+
+body.dark-mode .view-btn:hover {
+    background: #334155;
+}
+
+body.dark-mode .toast {
+    background: #1e293b;
+    border-left-color: #3b82f6;
+}
+
+body.dark-mode .toast-title {
+    color: #f8fafc;
+}
+
+body.dark-mode .toast-message {
+    color: #cbd5e1;
+}
+
+body.dark-mode .toast-close {
+    color: #94a3b8;
+}
+
+body.dark-mode .skeleton-card {
+    background: #1e293b;
+}
+
+body.dark-mode .skeleton,
+body.dark-mode .skeleton-image {
+    background: linear-gradient(90deg, #334155 25%, #475569 50%, #334155 75%);
+}
+
+body.dark-mode .loading {
+    color: #cbd5e1;
+}
+.pg-card.mirror-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    color: #f1f5f9;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .pg-card.mirror-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+}
+
+
+
+
+/* i need to achange the pg loan container card with a new design i need that the card should look like a frost mirror and background blur and have a black tint when in dark mode */
+
