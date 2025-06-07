@@ -1,3 +1,4 @@
+
 :root {
   /* Light Theme */
   --bg-color: #f4f4f4;
@@ -12,7 +13,6 @@
 
 body.dark-mode {
   /* Dark Theme Overrides */
-  --bg-color: #121212;
   --text-color: #eeeeee;
   --card-bg: #1f1f1f;
   --nav-bg: #1e1e2fb5;
@@ -20,7 +20,17 @@ body.dark-mode {
   --accent-color: #60a5fa;
   --shadow-color: rgba(0, 0, 0, 0.5);
   --border-color: #333;
+
+background: #BBD2C5;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #536976, #BBD2C5);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #536976, #BBD2C5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: var(--text-color);
 }
+
 
 /* Reset and Base Styles */
 * {
@@ -34,6 +44,10 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--bg-color);
+    body {
+    background: linear-gradient(to bottom right, #2c003e, #3b0a44, #4e1a57);
+}
+
 }
 
 
@@ -414,23 +428,27 @@ body {
 }
 
 .filter-btn {
-    background: var(--primary, #3b82f6);
+    background-image: linear-gradient(to right, #1A2980 0%, #26D0CE 51%, #1A2980 100%);
+    background-size: 200% auto;
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.15s ease;
+    transition: background-position 0.5s ease, transform 0.15s ease;
     white-space: nowrap;
+    box-shadow: 0 0 10px #ccc;
 }
 
 .filter-btn:hover,
 .filter-btn:focus {
-    background: var(--primary-hover, #2563eb);
+    background-position: right center;
     transform: translateY(-2px);
     outline: none;
+    color: #fff;
 }
+
 
 .listings-grid {
     display: grid;

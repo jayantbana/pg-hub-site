@@ -1,3 +1,5 @@
+
+
 // Utility Functions
 const utils = {
     // Format currency
@@ -349,4 +351,5 @@ const utils = {
 };
 
 // Export utils globally
+
 window.utils = utils;

@@ -1,3 +1,4 @@
+
 // Component Functions for PG Listing Website
 
 // PG Card Component
@@ -9,6 +10,8 @@ function createPGCard(pg) {
     return `
         <div class="pg-card" data-id="${pg.id}" onclick="showPGDetails(${pg.id})">
             <div class="pg-card-image">
+           <img src="${pg.images[0]}" alt="${pg.name}" class="pg-image" onload="this.previousElementSibling.style.display='none';" />
+
                 ${pg.has3d ? `<div class="pg-badge">3D Available</div>` : ''}
                 ${pg.verified ? `<div class="pg-badge featured">Verified</div>` : ''}
                 ${pg.has3d ? `
@@ -80,6 +83,8 @@ function createPGDetailsModal(pg) {
         <div class="pg-details">
             <div class="pg-details-header">
                 <div class="pg-details-image">
+                <img src="${pg.images[0]}" alt="${pg.name}" class="pg-image" />
+
                     ${pg.has3d ? `
                         <button class="view-3d-btn" onclick="show3DViewer(${pg.id})" style="position: absolute; bottom: 15px; left: 15px;">
                             <i class="fas fa-cube"></i>
@@ -190,7 +195,7 @@ function createPGDetailsModal(pg) {
 // Skeleton Loading Component
 function createSkeletonCard() {
     return `
-        <div class="skeleton-card">
+        <div class="skeleton-card mirror-card">
             <div class="skeleton-image"></div>
             <div class="skeleton-content">
                 <div class="skeleton skeleton-title"></div>
@@ -448,3 +453,4 @@ window.components = {
 };
 
 // After cards are appended inside load more
+

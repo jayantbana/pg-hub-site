@@ -1,3 +1,4 @@
+
 /* PG Card Component */
 .pg-card {
     background: rgba(255, 255, 255, 0.15); /* Light frost background */
@@ -21,30 +22,45 @@
 .pg-card-image {
     position: relative;
     height: 220px;
-    background: linear-gradient(45deg, #f0f9ff, #e0e7ff);
+    background: linear-gradient(135deg, #e2e8f0, #f1f5f9); /* Lighter neutral tones */
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
 .pg-card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: opacity 0.4s ease-in-out;
+    opacity: 1;
+    z-index: 2;
+    position: relative;
 }
 
+.pg-card-image.loading img {
+    opacity: 0;
+}
+
+/* Optional: SVG shimmer placeholder for image loading */
 .pg-card-image::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="%23f8fafc"/><rect x="50" y="50" width="100" height="80" fill="%23e2e8f0" rx="5"/><rect x="250" y="50" width="100" height="80" fill="%23e2e8f0" rx="5"/><rect x="50" y="170" width="300" height="20" fill="%23cbd5e1" rx="10"/><rect x="50" y="210" width="200" height="15" fill="%23cbd5e1" rx="7"/><circle cx="320" cy="80" r="15" fill="%233b82f6"/></svg>');
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f1f5f9'/%3E%3Crect x='50' y='50' width='100' height='80' fill='%23e2e8f0' rx='5'/%3E%3Crect x='250' y='50' width='100' height='80' fill='%23e2e8f0' rx='5'/%3E%3Crect x='50' y='170' width='300' height='20' fill='%23cbd5e1' rx='10'/%3E%3Crect x='50' y='210' width='200' height='15' fill='%23cbd5e1' rx='7'/%3E%3Ccircle cx='320' cy='80' r='15' fill='%233b82f6'/%3E%3C/svg%3E");
     background-size: cover;
-    opacity: 0.3;
+    opacity: 0.35;
+    z-index: 1;
+    transition: opacity 0.3s ease;
 }
+
+.pg-card-image.loaded::before {
+    opacity: 0;
+}
+
 
 .pg-badge {
     position: absolute;
@@ -175,21 +191,25 @@
 }
 
 .btn-primary {
-    background: #3b82f6;
+    background-image: linear-gradient(to right, #1A2980 0%, #26D0CE 51%, #1A2980 100%);
+    background-size: 200% auto;
     color: white;
     border: none;
-    padding: 0.75rem 1rem;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-position 0.5s ease;
     flex: 1;
     font-size: 0.9rem;
+    /* Keep original margin and padding intact (assuming none set here) */
 }
 
 .btn-primary:hover {
-    background: #2563eb;
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
 }
+
 
 .btn-secondary {
     background: #f8fafc;
@@ -613,45 +633,74 @@
     margin-right: 1rem;
 }
 
+/* Shimmer Animation */
+@keyframes loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Base Skeleton Style */
 .skeleton {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 200% 100%;
-    animation: loading 1.5s infinite;
-    border-radius: 4px;
+  background: linear-gradient(90deg, var(--skeleton-light1, #3b3b3b) 25%, var(--skeleton-light2, #4a4a4a) 50%, var(--skeleton-light1, #3b3b3b) 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 6px;
+  display: block;
 }
 
+/* Card Container */
 .skeleton-card {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  background: var(--card-bg, #fff);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: background 0.3s ease;
 }
 
+/* Skeleton Image Area */
 .skeleton-image {
-    height: 220px;
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 200% 100%;
-    animation: loading 1.5s infinite;
+  height: 220px;
+  background: linear-gradient(90deg, var(--skeleton-light1, #3b3b3b) 25%, var(--skeleton-light2, #4a4a4a) 50%, var(--skeleton-light1, #3b3b3b) 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 15px 15px 0 0;
 }
 
+/* Content Area */
 .skeleton-content {
-    padding: 1.5rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
+/* Title Placeholder */
 .skeleton-title {
-    height: 1.5rem;
-    margin-bottom: 1rem;
-    border-radius: 4px;
+  height: 1.5rem;
+  width: 70%;
+  border-radius: 6px;
 }
 
+/* Text Lines */
 .skeleton-text {
-    height: 1rem;
-    margin-bottom: 0.5rem;
-    border-radius: 4px;
+  height: 1rem;
+  width: 100%;
+  border-radius: 4px;
 }
 
 .skeleton-text.short {
-    width: 60%;
+  width: 60%;
+}
+
+/* Dark Mode Variable Support */
+body.dark-mode {
+  --skeleton-light1: #2a2a2a;
+  --skeleton-light2: #3a3a3a;
+  --card-bg: #1f1f1f;
 }
 
 /* Responsive Components */
@@ -702,4 +751,65 @@
         right: 1rem;
     }
 }
+
+/* Dark Mode Overrides */
+body.dark-mode .view-btn {
+    background: rgba(30, 41, 59, 0.8);
+    color: #f1f5f9;
+}
+
+body.dark-mode .view-btn:hover {
+    background: #334155;
+}
+
+body.dark-mode .toast {
+    background: #1e293b;
+    border-left-color: #3b82f6;
+}
+
+body.dark-mode .toast-title {
+    color: #f8fafc;
+}
+
+body.dark-mode .toast-message {
+    color: #cbd5e1;
+}
+
+body.dark-mode .toast-close {
+    color: #94a3b8;
+}
+
+body.dark-mode .skeleton-card {
+    background: #1e293b;
+}
+
+body.dark-mode .skeleton,
+body.dark-mode .skeleton-image {
+    background: linear-gradient(90deg, #334155 25%, #475569 50%, #334155 75%);
+}
+
+body.dark-mode .loading {
+    color: #cbd5e1;
+}
+.pg-card.mirror-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    color: #f1f5f9;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .pg-card.mirror-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+}
+
+
+
+
 /* i need to achange the pg loan container card with a new design i need that the card should look like a frost mirror and background blur and have a black tint when in dark mode */
+

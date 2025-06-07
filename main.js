@@ -1,3 +1,4 @@
+
 // Main Application JavaScript
 class PGFinderApp {
     constructor() {
@@ -652,3 +653,4 @@ const newCards = document.querySelectorAll('.pg-card:not(.mirror-effect)');
 newCards.forEach(card => {
   card.classList.add('mirror-effect');
 });
+

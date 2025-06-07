@@ -1,3 +1,7 @@
+
+// add photos in all data listings
+
+
 // PG Listings Data - 120+ Real Listings
 const pgListings = [
     // Mumbai Listings (20)
@@ -81,7 +85,7 @@ const pgListings = [
         availableRooms: 2,
         address: "Ocean Breeze Apartments, Juhu Beach Road, Mumbai 400049",
         verified: true,
-        images: ["room4.jpg", "view1.jpg"],
+        images: ["photo_data/ovpg1.jpg", "view1.jpg"],
         latitude: "19.1075",
         longitude: "72.8263"
     },
@@ -333,7 +337,7 @@ const pgListings = [
         availableRooms: 2,
         address: "Phoenix Tower, Lower Parel, Mumbai 400013",
         verified: true,
-        images: ["room16.jpg"],
+        images: ["photo_data/ppg.jpeg"],
         latitude: "19.0055",
         longitude: "72.8314"
     },
@@ -375,7 +379,7 @@ const pgListings = [
         availableRooms: 1,
         address: "Executive Heights, Worli, Mumbai 400018",
         verified: true,
-        images: ["room18.jpg"],
+        images: ["photo_data/ehm.webp"],
         latitude: "19.0176",
         longitude: "72.8174"
     },
@@ -1013,7 +1017,7 @@ const additionalListings = [
         availableRooms: 1,
         address: "Royal Enclave, MG Road, Bangalore 560001",
         verified: true,
-        images: ["room48.jpg"],
+        images: ["photo_data/repg.jpeg"],
         latitude: "12.9716",
         longitude: "77.6197"
     },
@@ -1098,7 +1102,7 @@ const additionalListings = [
         availableRooms: 1,
         address: "Executive Heights, UB City, Bangalore 560001",
         verified: true,
-        images: ["room52.jpg"],
+        images: ["photo_data/ehp.jpeg"],
         latitude: "12.9716",
         longitude: "77.6202"
     },
@@ -1340,7 +1344,7 @@ const additionalListings = [
         availableRooms: 4,
         address: "Sector 15, Chandigarh",
         verified: true,
-        images: ["home_merrick_way.jpg"],
+        images: ["photo_data/himw1.jpeg"],
         latitude: "30.7510",
         longitude: "76.7805"
     },
@@ -1679,4 +1683,5 @@ window.pgData = {
     ]
 };
 // add photos in all data listings
+
 
